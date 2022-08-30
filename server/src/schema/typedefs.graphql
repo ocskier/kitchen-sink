@@ -1,0 +1,11 @@
+schema {
+  query: Query
+}
+
+type Time {
+  time: Number!
+}
+
+type Query {
+  getTime: Time!
+}
