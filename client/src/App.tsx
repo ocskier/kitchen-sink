@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 
 import logo from "./logo.svg";
@@ -6,8 +6,12 @@ import "./App.css";
 import { GET_TIME } from "./services/api";
 
 function App() {
-  const [time, setTime] = useState<number | null>(null);
-  const { loading, error, data, refetch } = useQuery(GET_TIME);
+  const {
+    loading,
+    error,
+    data: { time },
+    refetch,
+  } = useQuery(GET_TIME);
 
   useEffect(() => {
     const timeInterval = setInterval(() => refetch(), 1000);
@@ -19,10 +23,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {data.time && (
+        {time && (
           <>
             <h2 style={{ margin: "3rem 0" }}>Server time:</h2>
-            <p>{new Date(data.time).toUTCString()}</p>
+            <p>{new Date(time).toUTCString()}</p>
           </>
         )}
         <img src={logo} className="App-logo" alt="logo" />
