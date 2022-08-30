@@ -17,8 +17,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const timeInterval = setInterval(() => getTime(), 1000);
-    return () => clearInterval(timeInterval);
+    // const timeInterval = setInterval(() => getTime(), 1000);
+    // return () => clearInterval(timeInterval);
   }, [getTime]);
 
   return (

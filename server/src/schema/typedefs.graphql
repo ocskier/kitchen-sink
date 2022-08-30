@@ -2,10 +2,12 @@ schema {
   query: Query
 }
 
-type Time {
-  time: Number!
+type TimeResult {
+  time: Float
+  success: Boolean!
+  errors: [String]
 }
 
 type Query {
-  getTime: Time!
+  getTime: TimeResult!
 }

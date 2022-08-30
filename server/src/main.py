@@ -1,12 +1,16 @@
-import time
 import flask
 from flask import request, jsonify, render_template
 from ariadne import load_schema_from_path, make_executable_schema,graphql_sync, snake_case_fallback_resolvers, ObjectType
 from ariadne.constants import PLAYGROUND_HTML
 
-type_defs = load_schema_from_path("./schema/typedefs.graphql")
+from .schema.resolvers import getTime
+
+resolvers = ObjectType("Query")
+resolvers.set_field("getTime", getTime)
+
+type_defs = load_schema_from_path("./server/src/schema/typedefs.graphql")
 schema = make_executable_schema(
-    type_defs, snake_case_fallback_resolvers
+    type_defs, resolvers, snake_case_fallback_resolvers
 )
 
 app = flask.Flask(__name__, static_url_path='', static_folder='build', template_folder="build")
@@ -30,10 +34,6 @@ def graphql_server():
     )
     status_code = 200 if success else 400
     return jsonify(result), status_code
-
-# @app.route("/current-time")
-# def get_timestamp():
-#     return {'time': time.time()}
 
 @app.route("/")
 def my_index():
