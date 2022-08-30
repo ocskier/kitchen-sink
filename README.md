@@ -1,6 +1,6 @@
-# kitchen-sink
+# Kitchen-sink
 
-## installation
+## Installation
 
 .flaskenv
 ```node
