@@ -30,6 +30,14 @@ function App() {
             <p>{new Date(time).toUTCString()}</p>
           </>
         )}
+        <a
+          href="http://localhost:5001/graphql"
+          style={{ color: "white" }}
+          target="_blank"
+          rel="noreferrer"
+        >
+          GraphQL playground
+        </a>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
