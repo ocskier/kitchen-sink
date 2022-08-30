@@ -1,33 +1,28 @@
 import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
+import { useQuery } from "@apollo/client";
 
 import logo from "./logo.svg";
 import "./App.css";
+import { GET_TIME } from "./services/api";
 
 function App() {
   const [time, setTime] = useState<number | null>(null);
-
-  const getTime = useCallback(async () => {
-    try {
-      const { data, status } = await axios.get("/current-time");
-      if (status === 200) setTime(Math.round(data.time) * 1000);
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+  const { loading, error, data, refetch } = useQuery(GET_TIME);
 
   useEffect(() => {
-    const timeInterval = setInterval(() => getTime(), 1000);
+    const timeInterval = setInterval(() => refetch(), 1000);
     return () => clearInterval(timeInterval);
-  }, [getTime]);
+  }, [refetch]);
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
   return (
     <div className="App">
       <header className="App-header">
-        {time && (
+        {data.time && (
           <>
             <h2 style={{ margin: "3rem 0" }}>Server time:</h2>
-            <p>{new Date(time).toUTCString()}</p>
+            <p>{new Date(data.time).toUTCString()}</p>
           </>
         )}
         <img src={logo} className="App-logo" alt="logo" />

@@ -1,1 +1,1 @@
-export * as default from "./queries";
+export * from "./queries";

@@ -1,9 +1,11 @@
-export const GET_TIME = `
-    query {
-        getTime {
-            time
-            success
-            errors
-        }
+import { gql } from "@apollo/client";
+
+export const GET_TIME = gql`
+  query {
+    getTime {
+      time
+      success
+      errors
     }
+  }
 `;
