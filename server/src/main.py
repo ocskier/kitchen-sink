@@ -1,12 +1,14 @@
 import flask
 from flask import request, jsonify, render_template
-from ariadne import load_schema_from_path, make_executable_schema, graphql_sync, snake_case_fallback_resolvers, ObjectType
+from ariadne import load_schema_from_path, make_executable_schema, graphql_sync, snake_case_fallback_resolvers, QueryType
 from ariadne.constants import PLAYGROUND_HTML
 
 from .schema.resolvers import getTime
 
-resolvers = ObjectType("Query")
-resolvers.set_field("getTime", getTime)
+queries = QueryType();
+queries.set_field("getTime", getTime)
+
+resolvers = [queries]
 
 type_defs = load_schema_from_path("./server/src/schema/typedefs.graphql")
 schema = make_executable_schema(
