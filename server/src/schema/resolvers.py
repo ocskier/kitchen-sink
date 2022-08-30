@@ -10,8 +10,8 @@ def getTime(obj, info):
     #     }
     # }
     try:
-        print(obj)
-        print(info)
+        # print(obj)
+        # print(info)
         payload = {
             "success": True,
             "time": time.time()
@@ -22,4 +22,3 @@ def getTime(obj, info):
             "errors": [str(error)]
         }
     return payload
-    
