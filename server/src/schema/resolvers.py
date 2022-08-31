@@ -1,14 +1,6 @@
 import time
 
 def getTime(obj, info):
-    # sample query:
-    # query GetTime {
-    #     getTime {
-    #         time
-    #         success
-    #         errors
-    #     }
-    # }
     try:
         # print(obj)
         # print(info)
