@@ -8,6 +8,8 @@ Make sure pipenv is installed - if on Mac:
 brew install pipenv
 ```
 
+Ensure Node conformity, running 16.x for development:
+
 ```node
 nvm use --lts
 ```
