@@ -6,12 +6,7 @@ import "./App.css";
 import { GET_TIME } from "./services/api";
 
 function App() {
-  const {
-    loading,
-    error,
-    data: { time },
-    refetch,
-  } = useQuery(GET_TIME);
+  const { loading, error, data, refetch } = useQuery(GET_TIME);
 
   useEffect(() => {
     const timeInterval = setInterval(() => refetch(), 1000);
@@ -23,12 +18,20 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {time && (
+        {data?.getTime?.time && (
           <>
             <h2 style={{ margin: "3rem 0" }}>Server time:</h2>
-            <p>{new Date(time).toUTCString()}</p>
+            <p>{new Date(data.getTime.time * 1000).toUTCString()}</p>
           </>
         )}
+        <a
+          href="http://localhost:5001/graphql"
+          style={{ color: "white" }}
+          target="_blank"
+          rel="noreferrer"
+        >
+          GraphQL playground
+        </a>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
