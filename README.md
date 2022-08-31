@@ -2,11 +2,19 @@
 
 ## Installation
 
+Make sure Yarn is installed:
+
+```node
+npm install --global yarn
+```
+
 Make sure pipenv is installed - if on Mac:
 
 ```bash
 brew install pipenv
 ```
+if on Windows:
+[Installation](https://www.pythontutorial.net/python-basics/install-pipenv-windows/)
 
 Ensure Node conformity, running 16.x for development:
 
