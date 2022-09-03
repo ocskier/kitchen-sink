@@ -8,6 +8,16 @@ type TimeResult {
   errors: [String]
 }
 
+type ConnectResult {
+  msg: String
+  success: Boolean!
+  errors: [String]
+}
+
 type Query {
   getTime: TimeResult!
+}
+
+type Mutation {
+  connect(payload): ConnectResult!
 }
