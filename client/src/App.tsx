@@ -1,17 +1,25 @@
-import { useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useMutation, useLazyQuery } from "@apollo/client";
 
 import logo from "./logo.svg";
 import "./App.css";
-import { GET_TIME } from "./services/api";
+import { CONNECT, GET_TIME } from "./services/api";
 
 function App() {
-  const { loading, error, data, refetch } = useQuery(GET_TIME);
+  const [connected, setConnected] = useState(false);
+  const [connect] = useMutation(CONNECT);
+  const [getTime, { loading, error, data }] = useLazyQuery(GET_TIME);
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
-    const timeInterval = setInterval(() => refetch(), 1000);
+    let timeInterval: NodeJS.Timer | undefined = undefined;
+    console.log(connected);
+    if (connected) {
+      timeInterval = setInterval(() => getTime(), 1000);
+    }
     return () => clearInterval(timeInterval);
-  }, [refetch]);
+  }, [connected, getTime]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
