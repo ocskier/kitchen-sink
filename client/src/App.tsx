@@ -16,14 +16,14 @@ function App() {
   const connectToServer = useCallback(async () => {
     try {
       const { data } = await connect({
-        variables: { payload: "https://localhost:3000" },
+        variables: { payload: window.location.href },
       });
       if (data?.connect?.msg) setConnected(true);
     } catch (err) {
       console.log(err);
     }
   }, [connect]);
-  console.log(data);
+
   const getTimeFromServer = useCallback(async () => {
     try {
       await getTime({ pollInterval: 1000 });
