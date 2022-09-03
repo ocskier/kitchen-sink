@@ -2,7 +2,6 @@ import time
 
 # Mutations
 def connect(obj, info, payload):
-    print(payload)
     try: 
         payload = {
             "success": True,
