@@ -1,13 +1,12 @@
 import time
 
 # Mutations
-def connect(obj, info):
-    print(obj)
-    print(info)
+def connect(obj, info, payload):
+    print(payload)
     try: 
         payload = {
             "success": True,
-            "msg": 'Successfully connected to the backend server!'
+            "msg": "Successfully connected %s to the backend server" % (payload)
         }
     except Exception as error:
         payload = {
