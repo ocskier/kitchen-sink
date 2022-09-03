@@ -2,8 +2,13 @@
 
 ## Installation
 
-Make sure Yarn is installed:
+Make sure Yarn is installed - if on Mac:
 
+```bash
+brew install yarn
+```
+
+if on Windows:
 ```node
 npm install --global yarn
 ```
