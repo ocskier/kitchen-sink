@@ -37,8 +37,8 @@ function App() {
   }, [connectToServer]);
 
   useEffect(() => {
-    getTimeFromServer();
-  }, [getTimeFromServer]);
+    if (connected) getTimeFromServer();
+  }, [connected, getTimeFromServer]);
 
   if (connectError || timeError) return <p>Error :(</p>;
   return (
