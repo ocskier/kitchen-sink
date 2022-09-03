@@ -19,5 +19,5 @@ type Query {
 }
 
 type Mutation {
-  connect(payload): ConnectResult!
+  connect(payload: String): ConnectResult!
 }
