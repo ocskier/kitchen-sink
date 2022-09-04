@@ -1,16 +1,19 @@
 import flask
 from flask import request, jsonify, render_template
-from ariadne import load_schema_from_path, make_executable_schema, graphql_sync, snake_case_fallback_resolvers, QueryType
+from ariadne import load_schema_from_path, make_executable_schema, graphql_sync, snake_case_fallback_resolvers, MutationType, QueryType
 from ariadne.constants import PLAYGROUND_HTML
 
-from .schema.resolvers import getTime
+from .schema.resolvers import connect, getTime
+
+mutations = MutationType();
+mutations.set_field('connect', connect)
 
 queries = QueryType();
 queries.set_field("getTime", getTime)
 
-resolvers = [queries]
+resolvers = [mutations, queries]
 
-type_defs = load_schema_from_path("./server/src/schema/typedefs.graphql")
+type_defs = load_schema_from_path("./server/src/schema/type-defs.graphql")
 schema = make_executable_schema(
     type_defs, resolvers, snake_case_fallback_resolvers
 )

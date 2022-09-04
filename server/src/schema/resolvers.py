@@ -1,9 +1,22 @@
 import time
 
+# Mutations
+def connect(obj, info, payload):
+    try: 
+        payload = {
+            "success": True,
+            "msg": "Successfully connected %s to the backend server" % (payload)
+        }
+    except Exception as error:
+        payload = {
+            "success": False,
+            "errors": [str(error)]
+        }
+    return payload
+
+# Queries
 def getTime(obj, info):
     try:
-        # print(obj)
-        # print(info)
         payload = {
             "success": True,
             "time": time.time()
@@ -14,3 +27,4 @@ def getTime(obj, info):
             "errors": [str(error)]
         }
     return payload
+    

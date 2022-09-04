@@ -1,0 +1,24 @@
+schema {
+  mutation: Mutation
+  query: Query
+}
+
+type TimeResult {
+  time: Float
+  success: Boolean!
+  errors: [String]
+}
+
+type ConnectResult {
+  msg: String
+  success: Boolean!
+  errors: [String]
+}
+
+type Query {
+  getTime: TimeResult!
+}
+
+type Mutation {
+  connect(payload: String): ConnectResult!
+}

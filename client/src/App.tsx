@@ -1,29 +1,59 @@
-import { useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useCallback, useEffect, useState } from "react";
+import { useMutation, useLazyQuery } from "@apollo/client";
 
 import logo from "./logo.svg";
 import "./App.css";
-import { GET_TIME } from "./services/api";
+import { CONNECT, GET_TIME } from "./services/api";
 
 function App() {
-  const { loading, error, data, refetch } = useQuery(GET_TIME);
+  const [connected, setConnected] = useState<boolean>(false);
+
+  const [connect, { loading: loadingConnect, error: connectError }] =
+    useMutation(CONNECT);
+  const [getTime, { loading: loadingTime, error: timeError, data }] =
+    useLazyQuery(GET_TIME);
+
+  const connectToServer = useCallback(async () => {
+    try {
+      const { data } = await connect({
+        variables: { payload: window.location.href },
+      });
+      if (data?.connect?.msg) setConnected(true);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [connect]);
+
+  const getTimeFromServer = useCallback(async () => {
+    try {
+      await getTime({ pollInterval: 1000 });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [getTime]);
 
   useEffect(() => {
-    const timeInterval = setInterval(() => refetch(), 1000);
-    return () => clearInterval(timeInterval);
-  }, [refetch]);
+    connectToServer();
+  }, [connectToServer]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  useEffect(() => {
+    if (connected) getTimeFromServer();
+  }, [connected, getTimeFromServer]);
+
+  if (connectError || timeError) return <p>Error :(</p>;
   return (
     <div className="App">
       <header className="App-header">
-        {data?.getTime?.time && (
-          <>
-            <h2 style={{ margin: "3rem 0" }}>Server time:</h2>
-            <p>{new Date(data.getTime.time * 1000).toUTCString()}</p>
-          </>
-        )}
+        <div style={{ height: "250px" }}>
+          {loadingConnect && <p>Connecting to server...</p>}
+          {loadingTime && <p>Loading...</p>}
+          {connected && data?.getTime?.time && (
+            <>
+              <h2 style={{ margin: "3rem 0" }}>Server time:</h2>
+              <p>{new Date(data?.getTime?.time * 1000).toUTCString()}</p>
+            </>
+          )}
+        </div>
         <a
           href="http://localhost:5001/graphql"
           style={{ color: "white" }}
