@@ -14,8 +14,8 @@ queries.set_field("getTime", getTime)
 subscriptions = SubscriptionType()
 
 @subscriptions.source("userConnected")
-def connected_generator(obj, info):
-    return 'User 123 connected'
+async def connected_generator(obj, info):
+    yield 'User 123 connected'
 
 
 @subscriptions.field("userConnected")
