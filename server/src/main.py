@@ -1,6 +1,6 @@
 import flask
 from flask import request, jsonify, render_template
-from ariadne import load_schema_from_path, make_executable_schema, graphql_sync, snake_case_fallback_resolvers, MutationType, QueryType
+from ariadne import load_schema_from_path, make_executable_schema, graphql_sync, snake_case_fallback_resolvers, MutationType, QueryType, SubscriptionType
 from ariadne.constants import PLAYGROUND_HTML
 
 from .schema.resolvers import connect, getTime
@@ -11,7 +11,18 @@ mutations.set_field('connect', connect)
 queries = QueryType()
 queries.set_field("getTime", getTime)
 
-resolvers = [mutations, queries]
+subscriptions = SubscriptionType()
+
+@subscriptions.source("userConnected")
+def connected_generator(obj, info):
+    return 'User 123 connected'
+
+
+@subscriptions.field("userConnected")
+def connected_resolver(user, info):
+    return user
+
+resolvers = [mutations, queries, subscriptions]
 
 type_defs = load_schema_from_path("./server/src/schema/type-defs.graphql")
 schema = make_executable_schema(
