@@ -5,10 +5,10 @@ from ariadne.constants import PLAYGROUND_HTML
 
 from .schema.resolvers import connect, getTime
 
-mutations = MutationType();
+mutations = MutationType()
 mutations.set_field('connect', connect)
 
-queries = QueryType();
+queries = QueryType()
 queries.set_field("getTime", getTime)
 
 resolvers = [mutations, queries]
