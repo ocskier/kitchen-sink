@@ -1,6 +1,7 @@
 schema {
   mutation: Mutation
   query: Query
+  subscription: Subscription
 }
 
 type TimeResult {
