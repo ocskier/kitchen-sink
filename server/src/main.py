@@ -1,9 +1,12 @@
+import asyncio
 import flask
 from flask import request, jsonify, render_template
 from ariadne import load_schema_from_path, make_executable_schema, graphql_sync, snake_case_fallback_resolvers, MutationType, QueryType, SubscriptionType
 from ariadne.constants import PLAYGROUND_HTML
 
 from .schema.resolvers import connect, getTime
+
+from .stores import queues
 
 mutations = MutationType()
 mutations.set_field('connect', connect)
@@ -15,12 +18,32 @@ subscriptions = SubscriptionType()
 
 @subscriptions.source("userConnected")
 async def connected_generator(obj, info):
-    yield 'User 123 connected'
+    queue = asyncio.Queue()
+    queues.append(queue)
+    try:
+        while True:
+            print('listen')
+            connection = await queue.get()
+            queue.task_done()
+            if not connection:
+                yield None
+            yield connection
+    except asyncio.CancelledError:
+        queues.remove(queue)
+        raise
 
 
 @subscriptions.field("userConnected")
-def connected_resolver(user, info):
-    return user
+async def connected_resolver(user, info):
+    if not user:
+        return {
+            "success": False,
+            "errors": ['Connection failed!']
+        }
+    return {
+            "success": True,
+            "msg": user
+        }
 
 resolvers = [mutations, queries, subscriptions]
 
