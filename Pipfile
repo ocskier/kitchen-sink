@@ -11,4 +11,4 @@ python-dotenv = "*"
 ariadne = "*"
 
 [requires]
-python_version = "3.8.5"
+python_version = "3"
