@@ -23,6 +23,9 @@ if on Windows:
 
 Ensure Node conformity, running 16.x for development:
 
+Installation of [NVM](https://tecadmin.net/install-nvm-macos-with-homebrew/) on Mac
+or Windows: [NVM](https://dev.to/skaytech/how-to-install-node-version-manager-nvm-for-windows-10-4nbi)
+
 ```node
 nvm use --lts
 ```
