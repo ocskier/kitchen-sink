@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { useMutation, useLazyQuery } from "@apollo/client";
+import { useMutation, useLazyQuery, useSubscription } from "@apollo/client";
 
 import logo from "./logo.svg";
 import "./App.css";
-import { CONNECT, GET_TIME } from "./services/api";
+import { CONNECT, GET_TIME, USER_CONNECTED } from "./services/api";
 
 function App() {
   const [connected, setConnected] = useState<boolean>(false);
@@ -12,6 +12,11 @@ function App() {
     useMutation(CONNECT);
   const [getTime, { loading: loadingTime, error: timeError, data }] =
     useLazyQuery(GET_TIME);
+
+  // const { data: subscriptionData, loading } = useSubscription(
+  //   USER_CONNECTED,
+  //   {}
+  // );
 
   const connectToServer = useCallback(async () => {
     try {
