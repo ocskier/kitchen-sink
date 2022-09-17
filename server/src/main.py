@@ -5,7 +5,6 @@ from strawberry.flask.views import AsyncGraphQLView
 from strawberry.subscriptions import GRAPHQL_TRANSPORT_WS_PROTOCOL, GRAPHQL_WS_PROTOCOL
 
 from .schema.resolvers import Query, Mutation, Subscription
-# , Subscription
 
 schema = Schema(query=Query, mutation=Mutation, subscription=Subscription)
 
