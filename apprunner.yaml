@@ -3,7 +3,7 @@ runtime: python3
 build:
   commands:
     build:
-      - pip install pipenv
+      - pip3 install pipenv
       - pipenv install --pre -r requirements.txt
 run: 
   command: gunicorn server.src.main:app

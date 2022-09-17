@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 python-dotenv = "*"
-flask = {extras = ["async"], version = "*"}
+flask = {extras = ["async"], version = "==2.1.0"}
 strawberry-graphql = {extras = ["debug-server"], version = "*"}
 gunicorn = "*"
 
