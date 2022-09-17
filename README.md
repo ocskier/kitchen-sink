@@ -30,6 +30,13 @@ or Windows: [NVM](https://dev.to/skaytech/how-to-install-node-version-manager-nv
 nvm use --lts
 ```
 
+Project level packages installed with pipenv:
+
+i.e.
+```python
+pipenv install mongoengine
+```
+
 .flaskenv
 ```node
 FLASK_ENV=development
