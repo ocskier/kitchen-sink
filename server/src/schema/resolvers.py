@@ -29,6 +29,7 @@ class Mutation:
         except Exception as error: 
             return ConnectResult(success=False, msg=None, errors=[str(error)])
 
+# Subscriptions
 @strawberry.type
 class Subscription:
     @strawberry.subscription
