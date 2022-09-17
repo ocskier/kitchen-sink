@@ -60,7 +60,7 @@ function App() {
           )}
         </div>
         <a
-          href="http://localhost:5001/graphql"
+          href="/graphql"
           style={{ color: "white" }}
           target="_blank"
           rel="noreferrer"
