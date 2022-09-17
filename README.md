@@ -26,8 +26,14 @@ Ensure Node conformity, running 16.x for development:
 Installation of [NVM](https://tecadmin.net/install-nvm-macos-with-homebrew/) on Mac
 or Windows: [NVM](https://dev.to/skaytech/how-to-install-node-version-manager-nvm-for-windows-10-4nbi)
 
+on Mac:
 ```node
 nvm use --lts
+```
+
+on Win:
+```node
+nvm use 16.17.0
 ```
 
 Project level packages installed with pipenv:
