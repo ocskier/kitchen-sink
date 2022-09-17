@@ -1,6 +1,7 @@
 schema {
   mutation: Mutation
   query: Query
+  subscription: Subscription
 }
 
 type TimeResult {
@@ -21,4 +22,8 @@ type Query {
 
 type Mutation {
   connect(payload: String): ConnectResult!
+}
+
+type Subscription {
+  userConnected: ConnectResult!
 }

@@ -1,22 +1,13 @@
 import flask
-from flask import request, jsonify, render_template
-from ariadne import load_schema_from_path, make_executable_schema, graphql_sync, snake_case_fallback_resolvers, MutationType, QueryType
-from ariadne.constants import PLAYGROUND_HTML
+from flask import render_template
+from strawberry import Schema
+from strawberry.flask.views import AsyncGraphQLView
+from strawberry.subscriptions import GRAPHQL_TRANSPORT_WS_PROTOCOL, GRAPHQL_WS_PROTOCOL
 
-from .schema.resolvers import connect, getTime
+from .schema.resolvers import Query, Mutation, Subscription
+# , Subscription
 
-mutations = MutationType()
-mutations.set_field('connect', connect)
-
-queries = QueryType()
-queries.set_field("getTime", getTime)
-
-resolvers = [mutations, queries]
-
-type_defs = load_schema_from_path("./server/src/schema/type-defs.graphql")
-schema = make_executable_schema(
-    type_defs, resolvers, snake_case_fallback_resolvers
-)
+schema = Schema(query=Query, mutation=Mutation, subscription=Subscription)
 
 app = flask.Flask(__name__, static_url_path='', static_folder='build', template_folder="build")
 
@@ -24,21 +15,11 @@ app.config["DEBUG"] = True
 
 app.config.from_pyfile('settings.py')
 
-@app.route("/graphql", methods=["GET"])
-def graphql_playground():
-    return PLAYGROUND_HTML, 200
-
-@app.route("/graphql", methods=["POST"])
-def graphql_server():
-    data = request.get_json()
-    success, result = graphql_sync(
-        schema,
-        data,
-        context_value=request,
-        debug=app.debug
-    )
-    status_code = 200 if success else 400
-    return jsonify(result), status_code
+app.add_url_rule('/graphql', view_func=AsyncGraphQLView.as_view(
+    'graphql_view',
+    schema=schema,
+    graphiql=True
+))
 
 @app.route("/")
 def my_index():
