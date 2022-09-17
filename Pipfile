@@ -9,6 +9,7 @@ verify_ssl = true
 python-dotenv = "*"
 flask = {extras = ["async"], version = "*"}
 strawberry-graphql = {extras = ["debug-server"], version = "*"}
+gunicorn = "*"
 
 [requires]
 python_version = "3"
