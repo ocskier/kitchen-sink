@@ -4,6 +4,6 @@ build:
   commands:
     build:
       - pip install pipenv
-      - pipenv install --pre -r requirements.txt
+      - pipenv install --pre --skip-lock -r requirements.txt
 run: 
   command: gunicorn server.src.main:app
