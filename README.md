@@ -2,17 +2,6 @@
 
 ## Installation
 
-Make sure Yarn is installed - if on Mac:
-
-```bash
-brew install yarn
-```
-
-if on Windows:
-```node
-npm install --global yarn
-```
-
 Make sure pipenv is installed - if on Mac:
 
 ```bash
