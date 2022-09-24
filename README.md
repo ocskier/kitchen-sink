@@ -25,11 +25,14 @@ on Win:
 nvm use 16.17.0
 ```
 
-Project level packages installed with pipenv:
+Project level packages installed with npm or pipenv:
 
 i.e.
 ```python
 pipenv install mongoengine
+```
+```node
+npm install dotenv
 ```
 
 .flaskenv
