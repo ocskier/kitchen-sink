@@ -6,7 +6,7 @@ build:
       - pip install pipenv
       - pipenv install --pre --skip-lock -r requirements.txt
 run: 
-  command: gunicorn 0.0.0.0:5000 server.src.main:app
+  command: pipenv run gunicorn 0.0.0.0:5000 server.src.main:app
   network: 
     port: 5000
     env: MY_APP_PORT
