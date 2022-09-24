@@ -60,7 +60,7 @@ function App() {
           )}
         </div>
         <a
-          href="http://localhost:5001/graphql"
+          href={process.env.PUBLIC_URL + '/graphql'}
           style={{ color: "white" }}
           target="_blank"
           rel="noreferrer"
