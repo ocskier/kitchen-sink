@@ -4,7 +4,7 @@
   "description": "A full stack project built with Python, Flask, and Create-React-App.",
   "main": "./server/main.py",
   "scripts": {
-    "start:dev:server": "pipenv run flask run --no-debugger",
+    "start:dev:server": "pipenv run flask run --host=0.0.0.0 --port=8080 --no-debugger",
     "start:dev:client": "cd client && yarn start",
     "start:dev": "concurrently \"yarn run start:dev:server\" \"yarn run start:dev:client\"",
     "install": "concurrently \"cd client && yarn\" \"pipenv install\"",
