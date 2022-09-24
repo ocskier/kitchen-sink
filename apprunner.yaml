@@ -8,5 +8,5 @@ build:
 run: 
   command: gunicorn server.src.main:app
   network: 
-    port: 5000
-    env: MY_APP_PORT  
+    port: 8000
+    env: MY_APP_PORT

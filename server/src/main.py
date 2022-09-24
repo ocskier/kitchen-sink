@@ -25,5 +25,5 @@ def my_index():
     return render_template("index.html")
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT"))
+    port = int(os.environ.get("MY_APP_PORT"))
     app.run('0.0.0.0', port)
