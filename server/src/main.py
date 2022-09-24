@@ -10,7 +10,7 @@ schema = Schema(query=Query, mutation=Mutation, subscription=Subscription)
 
 app = flask.Flask(__name__, static_url_path='', static_folder='build', template_folder="build")
 
-app.config["DEBUG"] = True
+# app.config["DEBUG"] = True
 
 app.config.from_pyfile('settings.py')
 
