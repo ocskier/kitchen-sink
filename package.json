@@ -4,11 +4,12 @@
   "description": "A full stack project built with Python, Flask, and Create-React-App.",
   "main": "./server/main.py",
   "scripts": {
-    "start:dev:server": "pipenv run flask run --host=0.0.0.0 --port=8080 --no-debugger",
+    "start:dev:server": "pipenv run flask run --port=5001 --no-debugger",
     "start:dev:client": "cd client && yarn start",
     "start:dev": "concurrently \"yarn run start:dev:server\" \"yarn run start:dev:client\"",
+    "start:prod": "pipenv run flask run --port=5000 --no-debugger",
     "install": "concurrently \"cd client && yarn\" \"pipenv install\"",
-    "start": "npm run start:dev",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "build": "cd client && npm run build && mv build ../server/src"
   },
   "repository": {
@@ -27,8 +28,8 @@
   },
   "homepage": "https://github.com/ocskier/kitchen-sink#README",
   "devDependencies": {
-    "concurrently": "^5.3.0"
+    "concurrently": "^5.3.0",
+    "if-env": "^1.0.4"
   },
   "dependencies": {}
 }
-
