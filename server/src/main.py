@@ -10,7 +10,7 @@ schema = Schema(query=Query, mutation=Mutation, subscription=Subscription)
 
 app = flask.Flask(__name__, static_url_path='', static_folder='build', template_folder="build")
 
-app.config["DEBUG"] = True
+# app.config["DEBUG"] = True
 
 app.config.from_pyfile('settings.py')
 
@@ -23,3 +23,7 @@ app.add_url_rule('/graphql', view_func=AsyncGraphQLView.as_view(
 @app.route("/")
 def my_index():
     return render_template("index.html")
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT"))
+    app.run('0.0.0.0', port)
